@@ -7,6 +7,6 @@ install:
 
 uninstall:
 	@rm -f $(PREFIX)/.visidata/plugins/hide_empty_cols.py
-	@sed /import plugins.hide_empty_cols/d $(PREFIX)/.visidata/plugins/__init__.py
+	@sed -i '' /import\ plugins.hide_empty_cols/d $(PREFIX)/.visidata/plugins/__init__.py
 
 .PHONY: install uninstall
