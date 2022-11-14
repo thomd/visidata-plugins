@@ -1,4 +1,4 @@
-iPREFIX?=$(HOME)
+PREFIX?=$(HOME)
 
 install:
 	@mkdir -p $(PREFIX)/.visidata/plugins
