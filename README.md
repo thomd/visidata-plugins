@@ -1,6 +1,6 @@
 # VisiData Plugins
 
-The plugins are only tested for VisiData 2.x
+The plugins are only tested for VisiData 2.x on macOS.
 
 ## `hide-empty-cols`
 
