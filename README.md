@@ -21,6 +21,11 @@ Before:
 
 After:
 
+| a | c |
+| - | - |
+| 1 |   |
+| 5 | 7 |
+
 ### Install
 
     git clone https://github.com/thomd/visidata-plugins.git
