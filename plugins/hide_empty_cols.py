@@ -1,4 +1,4 @@
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __author__ = "Thomas Dürr <thomduerr@gmail.com>"
 
 from visidata import Sheet, BaseSheet, asyncthread, copy, Progress, vd
@@ -19,11 +19,17 @@ def hide_empty_cols(sheet):
 
     @asyncthread
     def _reload(self=vs):
+        num_empty_cols = 0
         self.rows = sheet.rows
         gen = identify_empty_cols(self)
         prog = Progress(gen, gerund="hiding empty cols", total=self.nCols)
         for col in prog:
+            num_empty_cols += 1
             col.setWidth(0)
+        if num_empty_cols == 0:
+            vd.warning(f" no empty cols")
+        else:
+            vd.status(f" removed {num_empty_cols} empty column{'s' if num_empty_cols > 1 else ''}")
 
     vs.reload = _reload
     vd.push(vs)
