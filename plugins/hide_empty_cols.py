@@ -32,4 +32,4 @@ def hide_empty_cols(sheet):
     vs.reload = _reload
     vd.push(vs)
 
-BaseSheet.addCommand('', 'hide-empty-cols', 'sheet.hide_empty_cols()')
+BaseSheet.addCommand('', 'hide-empty-cols', 'sheet.hide_empty_cols()', 'hide all columns containg no data')

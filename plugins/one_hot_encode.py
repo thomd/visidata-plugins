@@ -1,7 +1,15 @@
+"""
+One-hot encode the currently selected column.
+
+This function creates a new binary column for each unique value in the selected column,
+indicating the presence (1) or absence (0) of that value in each row. The new columns
+are inserted immediately after the original column.
+"""
+
 __version__ = '0.1.0'
 __author__ = 'Thomas Dürr <thomduerr@gmail.com>'
 
-from visidata import Sheet, Sheet, Column
+from visidata import Sheet, Column
 
 @Sheet.api
 def one_hot_encode_col(sheet):
@@ -17,5 +25,4 @@ def one_hot_encode_col(sheet):
 
     sheet.vd.status(f'Added {len(unique_values)} columns')
 
-Sheet.addCommand('', 'one-hot-encode', 'sheet.one_hot_encode_col()')
-
+Sheet.addCommand('', 'one-hot-encode', 'sheet.one_hot_encode_col()', 'one-hot encode the currently selected column')
