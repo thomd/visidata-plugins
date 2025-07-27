@@ -1,7 +1,6 @@
 # VisiData Plugins
 
-> [!NOTE]
-> The plugins are only tested on macOS.
+Some [VisiData](https://www.visidata.org/) plugins.
 
 ## Install
 
@@ -12,6 +11,9 @@
 Uninstall with
 
     make uninstall
+
+> [!NOTE]
+> The plugins are only tested on macOS.
 
 ## `hide-empty-cols`
 
