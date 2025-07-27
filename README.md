@@ -17,7 +17,7 @@ Uninstall with
 
 This plugin hides **all** columns which contain no data.
 
-Use command `hide-empty-cols` or the `E` key.
+Use command `hide-empty-cols`.
 
 ### Test
 
@@ -39,7 +39,7 @@ After:
 
 ## `one-hot-encode`
 
-Use command `one-hot-encode` or the `E` key.
+Use command `one-hot-encode`.
 
 One hot encode values of a column.
 

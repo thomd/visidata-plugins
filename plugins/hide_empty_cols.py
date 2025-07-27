@@ -25,11 +25,11 @@ def hide_empty_cols(sheet):
             num_empty_cols += 1
             col.setWidth(0)
         if num_empty_cols == 0:
-            vd.warning(f' no empty cols')
+            vd.warning(f'No empty cols')
         else:
-            vd.status(f" removed {num_empty_cols} empty column{'s' if num_empty_cols > 1 else ''}")
+            vd.status(f"Removed {num_empty_cols} empty column{'s' if num_empty_cols > 1 else ''}")
 
     vs.reload = _reload
     vd.push(vs)
 
-BaseSheet.addCommand('1', 'hide-empty-cols', 'sheet.hide_empty_cols()')
+BaseSheet.addCommand(Null, 'hide-empty-cols', 'sheet.hide_empty_cols()')
