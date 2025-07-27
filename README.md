@@ -2,8 +2,8 @@
 
 Some [VisiData](https://www.visidata.org/) plugins:
 
-- [hide-empty-cols](#hide-empty-cols):
-- [one-hot-encode](#one-hot-encode): One-hot encode a column
+- [hide-empty-cols](#hide-empty-cols)
+- [one-hot-encode](#one-hot-encode)
 
 ## Install
 
@@ -20,7 +20,9 @@ Uninstall with
 
 ## `hide-empty-cols`
 
-This plugin hides **all** columns which contain no data.
+Hide all columns which contain no data.
+
+### Usage
 
 Use command `hide-empty-cols`.
 
@@ -48,7 +50,9 @@ One-hot encode the currently selected column.
 
 This function creates a new binary column for each unique value in the selected column, indicating the presence (1) or absence (0) of that value in each row. The new columns are inserted immediately after the original column.
 
-This prevents assuming an ordinal relationship between categories (e.g., "red" > "green") when using categorical data in models like linear regression, logistic regression and neural networks.
+This prevents assuming an ordinal relationship between categories (e.g., "red" > "green") when using categorical data in linear regression, logistic regression and neural networks.
+
+### Usage
 
 Use command `one-hot-encode`.
 
