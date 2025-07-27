@@ -21,7 +21,7 @@ This plugin hides **all** columns which contain no data.
 
 Use command `hide-empty-cols`.
 
-### Test
+### Example
 
     echo -e "col1,col2,col2,col4\n1,,,\n5,,7," | vd
 
@@ -45,7 +45,7 @@ One hot encode values of a column.
 
 Use command `one-hot-encode`.
 
-### Test
+### Example
 
     echo -e "color\nred\ngreen\nred\nblue\ngreen" | vd
 
