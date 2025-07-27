@@ -41,9 +41,9 @@ After:
 
 ## `one-hot-encode`
 
-Use command `one-hot-encode`.
-
 One hot encode values of a column.
+
+Use command `one-hot-encode`.
 
 ### Test
 
