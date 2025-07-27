@@ -17,5 +17,5 @@ def one_hot_encode_col(sheet):
 
     sheet.vd.status(f'Added {len(unique_values)} columns')
 
-Sheet.addCommand(Null, 'one-hot-encode', 'sheet.one_hot_encode_col()')
+Sheet.addCommand('', 'one-hot-encode', 'sheet.one_hot_encode_col()')
 
