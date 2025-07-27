@@ -58,7 +58,7 @@ Before:
 
 After:
 
-| color | color-blue │ color-green │ color-red |
+| color | color_blue | color_green | color_red |
 | ----- | ---------- | ----------- | --------- |
 | red   | 0          | 0           | 1         |
 | green | 0          | 1           | 0         |
