@@ -55,15 +55,13 @@ Before:
 | green |
 | red   |
 | blue  |
-| green |
 
 After:
 
-| color | color_blue │ color_green │ color_red |
+| color | color-blue │ color-green │ color-red |
 | ----- | ---------- | ----------- | --------- |
 | red   | 0          | 0           | 1         |
 | green | 0          | 1           | 0         |
 | red   | 0          | 0           | 1         |
 | blue  | 1          | 0           | 0         |
-| green | 0          | 1           | 0         |
 
