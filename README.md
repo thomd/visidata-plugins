@@ -4,6 +4,7 @@ Some [VisiData](https://www.visidata.org/) plugins:
 
 - [hide-empty-cols](#hide-empty-cols)
 - [one-hot-encode](#one-hot-encode)
+- [retrieve-salesforce-record](#retrieve-salesforce-record)
 
 ## Install
 
@@ -77,3 +78,13 @@ After:
 | green | 0          | 1           | 0         |
 | red   | 0          | 0           | 1         |
 | blue  | 1          | 0           | 0         |
+
+# `retrieve-salesforce-record`
+
+Retrieve a Salesforce record of the selected Salesforce ID in a new sheet.
+
+### Example
+
+```
+echo -e "A,B,C,D\n0ZS26000000Cb86GAC,0019V0000138V4QQAU,0039V00001Cv5BiQAJ,8lW9V000001owrRUAQ" | vd
+```

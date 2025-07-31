@@ -11,4 +11,7 @@ uninstall:
 	@while read -r f; do rm -f $(PREFIX)/$${f}; done < <(fd -e py . plugins)
 	@while read -r n; do sed -i '' "/$${n}/d" $(PREFIX)/plugins/__init__.py; done < <(fd -e py . plugins -x echo {/.})
 
-.PHONY: install uninstall
+develop:
+	@fswatch . | xargs -n1 -I {} sh -c "echo 'installing ...'; make"
+
+.PHONY: install uninstall develop
