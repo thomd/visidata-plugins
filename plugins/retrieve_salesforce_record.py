@@ -1,6 +1,6 @@
-# uses Salesforce REST API.
+# uses Salesforce REST API to retrieve data of a Salesforce Org.
 #
-# Requires to have the `sf` CLI tool installed and having set a default org.
+# Requires to have the `sf` CLI tool installed and having set a default authenticated org.
 #
 
 __version__ = '0.1.0'
@@ -13,21 +13,17 @@ import logging
 
 from visidata import vd, AttrDict, Sheet, Column, ColumnExpr
 
-logger = logging.getLogger(__name__)
-logging.basicConfig(filename='sf.log', encoding='utf-8', level=logging.DEBUG)
+# logger = logging.getLogger(__name__)
+# logging.basicConfig(filename='sf.log', encoding='utf-8', level=logging.DEBUG)
 
 def retrieve_record(id):
-    'TODO: description'
-    logger.debug(id)
+    # logger.debug(id)
     output = subprocess.check_output(f'sf data query -q "SELECT QualifiedApiName FROM EntityDefinition WHERE KeyPrefix=\'{id[0:3]}\'" --json', shell=True)
-    logger.debug(output)
     sObject = json.loads(output)['result']['records'][0]['QualifiedApiName']
-    logger.debug(f'sf data query -q "SELECT Fields(all) FROM {sObject} WHERE Id = \'{id}\' LIMIT 1" --json')
     output = subprocess.check_output(f'sf data query -q "SELECT Fields(all) FROM {sObject} WHERE Id = \'{id}\' LIMIT 1" --json', shell=True)
-    logger.debug(output)
     record = json.loads(output)['result']['records'][0]
-    logger.debug(record)
     record.pop('attributes')
+    record = {key: ('' if value is None else  value if isinstance(value, str) else str(value))for key, value in record.items()}
     return sObject, record
 
 @Sheet.api
@@ -38,13 +34,16 @@ def salesforce(sheet):
         return None
 
     sObject, record = retrieve_record(value)
-    sheet.vd.status(f'Id {value} is a {sObject}')
+    sheet.vd.status(f'{value} is a {sObject}')
+    sheet.vd.status(f'{len(record)}')
 
-    # new_sheet = Sheet('new_sheet')
-    # new_col = Column('Value')
-    # new_sheet.addColumn(new_col)
-    # sheet.vd.status(new_sheet)
-    # new_sheet.addRow([value])
-    # sheet.vd.addSheet(new_sheet)
+    # logger.debug(record)
+
+    new_sheet = Sheet(f'{sObject}')
+    for field, value in record.items():
+        field_col = Column(field, getter=lambda col, row, field=field: row.get(field))
+        new_sheet.addColumn(field_col)
+    new_sheet.rows = [record]
+    vd.push(new_sheet)
 
 Sheet.addCommand('1', 'retrieve-salesforce-record', 'sheet.salesforce()')
