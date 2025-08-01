@@ -83,9 +83,11 @@ After:
 
 Retrieve a Salesforce record of the selected Salesforce ID in a new sheet.
 
+Requires to have the `sf` [Salesforce CLI](https://developer.salesforce.com/tools/salesforcecli) installed and having set a default authenticated org.
+
 ### Usage
 
-Use command `retrieve-salesforce-record` or the key `1`.
+Use command `retrieve-salesforce-record` or the key `0`.
 
 ### Example
 

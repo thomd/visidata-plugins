@@ -9,41 +9,49 @@ __author__ = 'Thomas Dürr <thomduerr@gmail.com>'
 import subprocess
 import json
 import re
-import logging
 
-from visidata import vd, AttrDict, Sheet, Column, ColumnExpr
-
-# logger = logging.getLogger(__name__)
-# logging.basicConfig(filename='sf.log', encoding='utf-8', level=logging.DEBUG)
+from visidata import vd, AttrDict, Sheet, Column, ColumnExpr, asyncthread
 
 def retrieve_record(id):
-    # logger.debug(id)
     output = subprocess.check_output(f'sf data query -q "SELECT QualifiedApiName FROM EntityDefinition WHERE KeyPrefix=\'{id[0:3]}\'" --json', shell=True)
     sObject = json.loads(output)['result']['records'][0]['QualifiedApiName']
     output = subprocess.check_output(f'sf data query -q "SELECT Fields(all) FROM {sObject} WHERE Id = \'{id}\' LIMIT 1" --json', shell=True)
-    record = json.loads(output)['result']['records'][0]
-    record.pop('attributes')
-    record = {key: ('' if value is None else  value if isinstance(value, str) else str(value))for key, value in record.items()}
+    records = json.loads(output)['result']['records']
+    if len(records) > 0:
+        record = records[0]
+        record.pop('attributes')
+        record = {key: ('' if value is None else value if isinstance(value, str) else str(value))for key, value in record.items()}
+    else:
+        record = None
     return sObject, record
 
 @Sheet.api
 def salesforce(sheet):
     value = sheet.cursorValue
     if not bool(re.match(r'^[a-zA-Z0-9]{15}|[a-zA-Z0-9]{18}$', value)):
-        sheet.vd.status(f'{value} does not look like a Salesforce ID')
+        vd.fail(f'{value} is not a Salesforce ID')
         return None
 
-    sObject, record = retrieve_record(value)
-    sheet.vd.status(f'{value} is a {sObject}')
-    sheet.vd.status(f'{len(record)}')
+    sheet.vd.status(f'Retrieving Salesforce record for ID {value} ...')
 
-    # logger.debug(record)
+    @asyncthread
+    def _retrieve_and_display():
+        try:
+            sObject, record = retrieve_record(value)
+            if record is None:
+                vd.fail(f"{sObject} {value} does not exist on your Org")
+                return
 
-    new_sheet = Sheet(f'{sObject}')
-    for field, value in record.items():
-        field_col = Column(field, getter=lambda col, row, field=field: row.get(field))
-        new_sheet.addColumn(field_col)
-    new_sheet.rows = [record]
-    vd.push(new_sheet)
+            new_sheet = Sheet(f'{sObject}_{value}')
+            for field, field_value in record.items():
+                field_col = Column(field, getter=lambda col, row, field=field: row.get(field))
+                new_sheet.addColumn(field_col)
+            new_sheet.rows = [record]
+            vd.push(new_sheet)
+            sheet.vd.status(f"Retrieved '{sObject}' record with {len(record)} fields")
+        except Exception as e:
+            sheet.vd.exceptionCaught(e)
 
-Sheet.addCommand('1', 'retrieve-salesforce-record', 'sheet.salesforce()')
+    _retrieve_and_display()
+
+Sheet.addCommand('0', 'retrieve-salesforce-record', 'sheet.salesforce()')
