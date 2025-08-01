@@ -10,7 +10,7 @@ import subprocess
 import json
 import re
 
-from visidata import vd, AttrDict, Sheet, Column, ColumnExpr, asyncthread
+from visidata import vd, Sheet, Column, asyncthread
 
 def retrieve_record(id):
     output = subprocess.check_output(f'sf data query -q "SELECT QualifiedApiName FROM EntityDefinition WHERE KeyPrefix=\'{id[0:3]}\'" --json', shell=True)
