@@ -83,8 +83,12 @@ After:
 
 Retrieve a Salesforce record of the selected Salesforce ID in a new sheet.
 
+### Usage
+
+Use command `retrieve-salesforce-record` or the key `1`.
+
 ### Example
 
 ```
-echo -e "A,B,C\n0019V0000138V4QQAU,0039V00001Cv5BiQAJ,8lW9V000001owrRUAQ" | vd
+echo -e "Account ID\n0019V0000138V4QQAU" | vd
 ```
