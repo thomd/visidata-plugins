@@ -1,6 +1,6 @@
 # VisiData Plugins
 
-Some [VisiData](https://www.visidata.org/) plugins:
+Some plugins for my daily work with [VisiData](https://www.visidata.org/):
 
 - [hide-empty-cols](#hide-empty-cols)
 - [one-hot-encode](#one-hot-encode)
